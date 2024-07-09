@@ -1,0 +1,97 @@
+Here’s a detailed algorithm for the provided code, which implements Dijkstra's algorithm for finding the shortest paths from a source router to all other routers in a network.
+
+### Detailed Algorithm
+
+1. **Initialization**:
+   - Declare and initialize variables:
+     - `numberofrouters`: Stores the number of routers.
+     - `sourcerouter`: Stores the source router.
+     - `cost[10][10]`: Stores the cost of traveling between any two routers.
+     - `distance[10]`: Stores the shortest known distance from the source router to each router.
+     - `previous[10]`: Stores the previous router for each router in the path from the source.
+     - `visited[10]`: Keeps track of whether each router has been visited.
+
+2. **Input**:
+   - Prompt the user to enter the number of routers (`numberofrouters`).
+   - Prompt the user to enter the source router (`sourcerouter`).
+   - Use nested loops to fill in the `cost` matrix with the cost between each pair of routers.
+
+3. **Setup**:
+   - Initialize the `distance` array:
+     - Set all distances to a large value (e.g., `9999`), representing infinity.
+     - Set the distance from the `sourcerouter` to itself to `0`.
+   - Initialize the `visited` array to `0` (false), indicating that no routers have been visited yet.
+
+4. **Main Loop (Dijkstra’s Algorithm)**:
+   - Repeat the following steps `numberofrouters` times:
+     1. **Find the Unvisited Router with the Minimum Distance**:
+        - Set `minvalue` to a large value (`9999`).
+        - Iterate through all routers:
+          - If a router is unvisited and its `distance` is less than `minvalue`, update `minvalue` and `minindex` to this router's distance and index.
+     2. **Mark the Router as Visited**:
+        - Set `visited[minindex]` to `1` (true).
+     3. **Update Distances of Neighboring Routers**:
+        - Iterate through all routers:
+          - If a router is unvisited and the cost of traveling from `minindex` to this router, added to `minvalue`, is less than the current known distance, update `distance[j]` and `previous[j]`:
+            - `distance[j] = minvalue + cost[minindex][j]`
+            - `previous[j] = minindex`
+
+5. **Output**:
+   - For each router:
+     - Print the minimum cost from the `sourcerouter` to the router.
+     - Print the path by backtracking from the router to the `sourcerouter` using the `previous` array.
+
+### Pseudocode
+
+Here's the pseudocode for the detailed algorithm:
+
+```pseudo
+1. Initialize variables:
+   numberofrouters = 0
+   sourcerouter = 0
+   cost[10][10], previous[10], distance[10], visited[10]
+
+2. Input number of routers:
+   Print "Enter the number of Routers:"
+   Read numberofrouters
+
+3. Input source router:
+   Print "Enter the Source Router:"
+   Read sourcerouter
+
+4. Initialize cost matrix and arrays:
+   For i from 0 to numberofrouters - 1:
+      For j from 0 to numberofrouters - 1:
+         Print "Enter the cost between [i] and [j]:"
+         Read cost[i][j]
+      distance[i] = 9999  # Infinity
+      visited[i] = 0      # False
+
+5. Set distance of source router to itself:
+   distance[sourcerouter] = 0
+
+6. Main loop for Dijkstra's algorithm:
+   For i from 0 to numberofrouters - 1:
+      minvalue = 9999
+      For j from 0 to numberofrouters - 1:
+         If visited[j] is 0 and distance[j] < minvalue:
+            minvalue = distance[j]
+            minindex = j
+
+      visited[minindex] = 1
+
+      For j from 0 to numberofrouters - 1:
+         If visited[j] is 0 and minvalue + cost[minindex][j] < distance[j]:
+            distance[j] = minvalue + cost[minindex][j]
+            previous[j] = minindex
+
+7. Output results:
+   For i from 0 to numberofrouters - 1:
+      Print "Minimum Cost to router [i]:", distance[i]
+      Print "Path to router [i]: [i]"
+      temp = i
+      While temp is not sourcerouter:
+         Print "<== [previous[temp]]"
+         temp = previous[temp]
+```
+

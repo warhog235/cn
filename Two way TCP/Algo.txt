@@ -1,0 +1,96 @@
+### Algorithm for TCP Server Code
+
+1. **Initialize Variables:**
+   - Declare variables for server and client sockets.
+   - Create `sockaddr_in` structures for server and client addresses.
+   - Define a buffer for data storage.
+
+2. **Create Server Socket:**
+   - Use `socket()` to create a TCP socket.
+   - Check for successful creation and handle errors if any.
+
+3. **Prepare Address Structure:**
+   - Set `sin_family` to `AF_INET`.
+   - Set `sin_addr.s_addr` to `INADDR_ANY` (bind to any available interface).
+   - Set `sin_port` using `htons()` to specify the port number.
+
+4. **Bind Socket:**
+   - Use `bind()` to bind the socket to the specified address and port.
+   - Check for successful binding and handle errors if any.
+
+5. **Listen for Connections:**
+   - Use `listen()` to put the socket in listening mode, allowing incoming connections.
+   - Specify the backlog (maximum number of pending connections).
+   - Check for successful listening and handle errors if any.
+
+6. **Accept Client Connection:**
+   - Use `accept()` to accept an incoming client connection.
+   - Obtain the client's address and handle connection details.
+   - Check for successful acceptance and handle errors if any.
+
+7. **Receive Data:**
+   - Use `recv()` to receive data from the client.
+   - Store the data in a buffer.
+   - Check for successful data reception and handle errors if any.
+   - Null-terminate the received string.
+
+8. **Reverse Data:**
+   - Calculate the length of the received string.
+   - Use a loop to reverse the string in place.
+
+9. **Send Reversed Data:**
+   - Use `send()` to send the reversed string back to the client.
+   - Check for successful data sending and handle errors if any.
+
+10. **Close Sockets:**
+    - Close the client socket using `close()`.
+    - Close the server socket using `close()`.
+
+    ---------------------------------------------------------------------------------------------------------------------
+    ### Algorithm for TCP Client Code
+
+1. **Initialize Variables:**
+   - Declare variables for the client socket.
+   - Create a `sockaddr_in` structure for the server address.
+   - Define a buffer for data storage.
+
+2. **Create Client Socket:**
+   - Use `socket()` to create a TCP socket.
+   - Check for successful creation and handle errors if any.
+
+3. **Prepare Server Address Structure:**
+   - Set `sin_family` to `AF_INET`.
+   - Set `sin_addr.s_addr` using `inet_addr()` to specify the server's IP address (localhost in this case).
+   - Set `sin_port` using `htons()` to specify the port number.
+
+4. **Connect to Server:**
+   - Use `connect()` to establish a connection to the server.
+   - Pass the server address structure and its size.
+   - Check for successful connection and handle errors if any.
+
+5. **Input String:**
+   - Prompt the user to enter a string to be reversed.
+   - Use `fgets()` to read the input string from standard input.
+   - Remove the newline character from the string if present.
+
+6. **Send String to Server:**
+   - Use `send()` to send the input string to the server.
+   - Specify the client socket, the buffer containing the string, and its length.
+   - Check for successful sending and handle errors if any.
+
+7. **Clear Buffer:**
+   - Use `memset()` to clear the buffer before receiving data.
+
+8. **Receive Reversed String:**
+   - Use `recv()` to receive the reversed string from the server.
+   - Store the received data in the buffer.
+   - Check for successful reception and handle errors if any.
+   - Null-terminate the received string.
+
+9. **Display Reversed String:**
+   - Print the reversed string received from the server.
+
+10. **Close Socket:**
+    - Close the client socket using `close()`.
+
+---

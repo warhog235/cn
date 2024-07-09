@@ -1,0 +1,73 @@
+### Algorithm for UDP Server Code
+
+1. **Initialize Variables:**
+   - Declare variables for server socket, client address, and buffer.
+   - Create `sockaddr_in` structures for server and client addresses.
+
+2. **Create UDP Socket:**
+   - Use `socket()` to create a UDP socket (`AF_INET`, `SOCK_DGRAM`).
+   - Check for successful creation and handle errors if any.
+
+3. **Prepare Address Structure:**
+   - Set `sin_family` to `AF_INET`.
+   - Set `sin_addr.s_addr` to `INADDR_ANY` to bind to any available interface.
+   - Set `sin_port` using `htons()` to specify the port number.
+
+4. **Bind Socket:**
+   - Use `bind()` to bind the socket to the specified address and port.
+   - Check for successful binding and handle errors if any.
+
+5. **Receive Message from Client:**
+   - Use `recvfrom()` to receive a message from the client.
+   - Provide a buffer (`buffer`), its size (`BUFFERSIZE`), flags (`0`), client address (`struct sockaddr*`), and client address length (`socklen_t*`).
+   - Check for successful reception and handle errors if any.
+
+6. **Process Data:**
+   - Reverse the received message or perform required operations on the data.
+
+7. **Send Response to Client:**
+   - Use `sendto()` to send the processed data back to the client.
+   - Provide the buffer with processed data, its length (`strlen(buffer)`), flags (`0`), client address (`struct sockaddr*`), and client address length (`sizeof(clientaddress)`).
+   - Check for successful sending and handle errors if any.
+
+8. **Close Socket:**
+   - Close the server socket using `close()`.
+
+---
+
+### Algorithm for UDP Client Code
+
+1. **Initialize Variables:**
+   - Declare variables for the client socket, server address, server address length, and buffer.
+
+2. **Create UDP Socket:**
+   - Use `socket()` to create a UDP socket (`AF_INET`, `SOCK_DGRAM`).
+   - Check for successful creation and handle errors if any.
+
+3. **Prepare Server Address Structure:**
+   - Set `sin_family` to `AF_INET`.
+   - Set `sin_addr.s_addr` using `inet_addr()` to specify the server's IP address (e.g., `"127.0.0.1"` for localhost).
+   - Set `sin_port` using `htons()` to specify the port number.
+
+4. **Prompt for Input:**
+   - Print a prompt asking the user to enter a string to be reversed.
+
+5. **Read Input:**
+   - Use `fgets()` to read the input string from the user into a buffer (`buffer`).
+   - Remove the newline character from the string if present.
+
+6. **Send Data to Server:**
+   - Use `sendto()` to send the data (buffer containing input string, its length (`strlen(buffer)`), flags (`0`), server address (`struct sockaddr*`), and server address length (`sizeof(serveraddress)`)).
+
+7. **Receive Response from Server:**
+   - Use `recvfrom()` to receive a response from the server.
+   - Provide a buffer (`buffer`), its size (`BUFFERSIZE`), flags (`0`), server address (`struct sockaddr*`), and server address length (`socklen_t*`).
+   - Check for successful reception and handle errors if any.
+
+8. **Print Response:**
+   - Print the reversed string or processed data received from the server.
+
+9. **Close Socket:**
+   - Close the client socket using `close()`.
+
+---

@@ -1,0 +1,29 @@
+
+### Algorithm Explanation:
+1. **Structures Definition**: 
+   - `struct Link`: Represents a link between nodes with `source`, `destination`, and `weight`.
+   - `struct Network`: Represents the network with `num_nodes`, `num_links`, and an array of `links`.
+
+2. **Input Handling**: 
+   - Inputs the number of nodes (`num_nodes`) and links (`num_links`).
+   - Dynamically allocates memory for the network structure and links array.
+
+3. **Link Details Input**: 
+   - Loops to input details (source, destination, weight) for each link.
+
+4. **Bellman-Ford Initialization**: 
+   - Initializes an array `distances` to store shortest distances from the source node.
+   - Sets distance from `source_node` to itself as `0` and all others to `INT_MAX`.
+
+5. **Bellman-Ford Algorithm**:
+   - Iterates `num_nodes - 1` times (where `num_nodes` is the number of nodes) to relax all edges.
+   - For each edge, checks if the distance can be minimized using `distances[u] + wt < distances[v]`.
+
+6. **Negative Cycle Detection**:
+   - After relaxing edges, checks for negative weight cycles.
+   - If any distance can still be reduced after `num_nodes - 1` iterations, a negative weight cycle exists.
+
+7. **Output**:
+   - Prints the shortest distances from `source_node` to all other nodes.
+   - Frees allocated memory before exiting.
+
